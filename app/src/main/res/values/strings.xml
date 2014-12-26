@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preference_last_alarm">com.lweynant.wastecalendar.sharedpreferences.LAST_ALARM</string>
+
+    <string name="app_name">Waste Calendar</string>
+    <string name="action_settings">Settings</string>
+    <string name="gft">Kitchen and Garden</string>
+    <string name="pmd">PMD</string>
+    <string name="paper">Paper</string>
+    <string name="brown_bag">Brown bag</string>
+    <string name="unknown">Unknown</string>
+    <string name="this_evening">This evening</string>
+    <string name="tomorrow_evening">Tomorrow evening</string>
+    <string name="day_after_tomorrow">Day after tomorrow</string>
+    <string name="date_evening_day_m_d">%1$s evening, %2$s %3$d</string>
+    <string name="date_day_m_d">%1$s, %2$s %3$d</string>
+    <string name="time">Time</string>
+    <string name="time_summary">What time should you be notified?</string>
+    <string name="settings">Settings</string>
+    <string name="reset">Reset alarm</string>
+    <string name="preference_title_last_alarm_set">Next alarm set for</string>
+    <string name="preferences_last_alarm_set_default_value">No alarm set</string>
+    <string name="last_alarm_summary_type_alarm_setat">%1$s %2$s \n (set on %3$s)</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    
+    <string name="modify_calendar">Modify calendar</string>
+    <string name="waste_details">Waste details</string>
+    <string name="show_waste_details">Show waste details</string>
+    <string name="collection_date">Collection date:</string>
+    <string name="take_out_date">Take out date:</string>
+    
+    <string name="upcoming">Upcoming</string>
+    <string name="past">Past</string>
+    <string name="delete_waste_event">Delete waste event</string>
+</resources>

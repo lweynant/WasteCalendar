@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_item_modifycalendar"
+        android:orderInCategory="100"
+        android:showAsAction="withText|collapseActionView"
+        android:title="@string/modify_calendar">
+    </item>
+    <item
+        android:id="@+id/menu_item_settings"
+        android:orderInCategory="100"
+        android:showAsAction="withText|collapseActionView"
+        android:title="@string/settings">
+    </item>
+    <item
+        android:id="@+id/menu_item_reset"
+        android:orderInCategory="101"
+        android:showAsAction="withText|collapseActionView"
+        android:title="@string/reset">
+    </item>
+    
+</menu>

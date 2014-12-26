@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.lweynant.wastecalendar"
+    android:versionCode="1"
+    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.lweynant.wastecalendar.ui.WasteListActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.lweynant.wastecalendar.AlarmService"
+            android:exported="false" >
+        </service>
+
+        <receiver
+            android:name="com.lweynant.wastecalendar.BootReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.lweynant.wastecalendar.ui.SettingsActivity"
+                  android:label="@string/settings"
+                  android:parentActivityName="com.lweynant.wastecalendar.ui.WasteListActivity" >
+        </activity>
+        <activity
+            android:label="@string/modify_calendar" 
+            android:name="com.lweynant.wastecalendar.ui.ModifyCalendarActivity"
+                  android:parentActivityName="com.lweynant.wastecalendar.ui.WasteListActivity" >
+        </activity>
+        <activity
+            android:label="@string/waste_details" 
+            android:name="com.lweynant.wastecalendar.ui.WasteDetailsActivity"
+                  android:parentActivityName="com.lweynant.wastecalendar.ui.WasteListActivity" >
+        </activity>
+        
+        <provider
+            android:name="com.lweynant.wastecalendar.provider.WasteContentProvider"
+            android:authorities="com.lweynant.provider.WasteEventProvider" >
+        </provider>
+    </application>
+
+</manifest>

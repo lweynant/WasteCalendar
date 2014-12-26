@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ListPreference
+        android:defaultValue="19"
+        android:entries="@array/take_out_time_options"
+        android:entryValues="@array/take_out_time_options_values"
+        android:key="com.lweynant.wastecalendar.sharedpreferences.ALARM_HOUR"
+        android:summary="@string/time_summary"
+        android:title="@string/time" />
+com.lweynant.wastecalendar.sharedpreferences.LAST_ALARMcom.lweynant.wastecalendar.sharedpreferences.LAST_ALARM
+    <Preference
+        android:key="@string/preference_last_alarm"
+        android:selectable="false" android:defaultValue="@string/preferences_last_alarm_set_default_value" android:title="@string/preference_title_last_alarm_set" android:enabled="true" android:shouldDisableView="true"/>
+
+</PreferenceScreen>

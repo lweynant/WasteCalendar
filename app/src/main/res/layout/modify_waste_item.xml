@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/modify_waste_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/gft" />
+
+ <TextView
+     android:id="@+id/modify_waste_item_dates"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_alignBottom="@+id/modify_waste_item_image"
+     android:layout_alignParentTop="true"
+     android:layout_toRightOf="@+id/modify_waste_item_image"
+     android:paddingLeft="4dp"
+     android:paddingRight="4dp"
+     android:paddingTop="4dp"
+     android:text="7, 8"
+     android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

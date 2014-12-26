@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="take_out_time_options">
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+    </string-array>
+    <string-array name="take_out_time_options_values">
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+    
+</resources>
