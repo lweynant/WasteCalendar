@@ -1,4 +1,4 @@
-package com.lweynant.wastecalendar.ui;
+package com.lweynant.wastecalendar.unitTest.ui;
 
 import android.test.suitebuilder.annotation.SmallTest;
 
@@ -12,6 +12,8 @@ import java.util.Calendar;
 
 import com.lweynant.wastecalendar.model.Date;
 import com.lweynant.wastecalendar.model.IDate;
+import com.lweynant.wastecalendar.ui.IDisplay;
+import com.lweynant.wastecalendar.ui.WastePickerSummaryBuilder;
 
 import junit.framework.TestCase;
 

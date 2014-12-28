@@ -1,4 +1,4 @@
-package com.lweynant.wastecalendar.model;
+package com.lweynant.wastecalendar.unitTest.model;
 
 import android.test.suitebuilder.annotation.SmallTest;
 
@@ -14,6 +14,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.lweynant.wastecalendar.R;
+import com.lweynant.wastecalendar.model.Date;
+import com.lweynant.wastecalendar.model.IDate;
+import com.lweynant.wastecalendar.model.ILocalizer;
+import com.lweynant.wastecalendar.model.IRelativeDateFormatter;
+import com.lweynant.wastecalendar.model.TakeOutDateFormatter;
 
 import junit.framework.TestCase;
 

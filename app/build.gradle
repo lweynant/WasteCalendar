@@ -4,12 +4,20 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
+    sourceSets  {
+        androidTest {
+            java {
+               srcDir 'src/unitTest/java'
+            }
+        }
+    }
     defaultConfig {
         applicationId "com.lweynant.wastecalendar"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
     }
     buildTypes {
         release {

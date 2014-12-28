@@ -1,4 +1,4 @@
-package com.lweynant.wastecalendar.ui;
+package com.lweynant.wastecalendar.unitTest.ui;
 import android.annotation.SuppressLint;
 import android.test.suitebuilder.annotation.SmallTest;
 
@@ -15,6 +15,7 @@ import org.junit.Test;
 import com.lweynant.wastecalendar.IClock;
 import com.lweynant.wastecalendar.R;
 import com.lweynant.wastecalendar.model.ILocalizer;
+import com.lweynant.wastecalendar.ui.LastAlarmSummaryBuilder;
 
 import junit.framework.TestCase;
 

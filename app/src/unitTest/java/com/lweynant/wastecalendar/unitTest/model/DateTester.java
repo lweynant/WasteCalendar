@@ -1,8 +1,10 @@
-package com.lweynant.wastecalendar.model;
+package com.lweynant.wastecalendar.unitTest.model;
 
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.lweynant.wastecalendar.Clock;
+import com.lweynant.wastecalendar.model.Date;
+import com.lweynant.wastecalendar.model.IDate;
 
 import junit.framework.TestCase;
 

@@ -1,4 +1,4 @@
-package com.lweynant.wastecalendar.model;
+package com.lweynant.wastecalendar.unitTest.model;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.lweynant.wastecalendar.R;
+import com.lweynant.wastecalendar.model.Date;
+import com.lweynant.wastecalendar.model.DateFormatter;
+import com.lweynant.wastecalendar.model.ILocalizer;
 
 import junit.framework.TestCase;
 

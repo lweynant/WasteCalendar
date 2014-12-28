@@ -1,4 +1,4 @@
-package com.lweynant.wastecalendar.ui;
+package com.lweynant.wastecalendar.unitTest.ui;
 
 import android.test.suitebuilder.annotation.SmallTest;
 
