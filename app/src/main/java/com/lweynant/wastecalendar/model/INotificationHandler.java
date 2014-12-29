@@ -6,8 +6,9 @@ import android.app.PendingIntent;
 public interface INotificationHandler {
 
 
-	PendingIntent getContentIntent(int requestCodeNotify, int flagUpdateCurrent);
-	void sendNotification(Notification notification);
+    PendingIntent getContentIntent(int requestCodeNotify, int flagUpdateCurrent);
 
-	
+    void sendNotification(Notification notification);
+
+
 }

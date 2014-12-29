@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
-public class DateTester extends TestCase{
+public class DateTester extends TestCase {
 
     private IDate anyDay() {
         return new Date(2013, Calendar.JANUARY, 23);

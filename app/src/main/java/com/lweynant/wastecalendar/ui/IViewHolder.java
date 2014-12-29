@@ -7,12 +7,12 @@ import com.lweynant.wastecalendar.provider.ICursorContent;
 
 public interface IViewHolder {
 
-	void setTextAndDefaultImage(ICursorContent content,  IRelativeDateFormatter formatter);
+    void setTextAndDefaultImage(ICursorContent content, IRelativeDateFormatter formatter);
 
-	void setAndShowImage(Drawable image);
+    void setAndShowImage(Drawable image);
 
-	boolean isForId(int id);
+    boolean isForId(int id);
 
-	int getImageResource();
+    int getImageResource();
 
 }

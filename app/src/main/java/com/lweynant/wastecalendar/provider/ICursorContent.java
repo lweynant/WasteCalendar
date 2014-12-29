@@ -4,9 +4,9 @@ import com.lweynant.wastecalendar.model.IWasteEvent;
 
 public interface ICursorContent {
 
-	public abstract IWasteEvent getWasteEvent();
+    public abstract IWasteEvent getWasteEvent();
 
-	public abstract int getId();
+    public abstract int getId();
 
 
 }

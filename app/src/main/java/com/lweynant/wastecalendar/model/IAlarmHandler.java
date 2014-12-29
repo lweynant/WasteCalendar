@@ -5,8 +5,10 @@ import android.content.Intent;
 
 public interface IAlarmHandler {
 
-	Intent getContentIntent();
-	PendingIntent getPendingIntent(Intent intent, int requestCode, int flags);
-	void set(int rtc, long timeInMillis, PendingIntent pendingIntent);
+    Intent getContentIntent();
+
+    PendingIntent getPendingIntent(Intent intent, int requestCode, int flags);
+
+    void set(int rtc, long timeInMillis, PendingIntent pendingIntent);
 
 }

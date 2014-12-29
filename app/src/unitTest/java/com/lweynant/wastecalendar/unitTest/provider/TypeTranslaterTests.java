@@ -15,30 +15,31 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TypeTranslaterTests  extends TestCase{
+public class TypeTranslaterTests extends TestCase {
 
-	private ILocalizer localizer;
+    private ILocalizer localizer;
 
-	public void setUp() throws Exception {
-		localizer = mock(ILocalizer.class);
-		when(localizer.string(anyInt())).thenReturn("unstubbed");
-	}
+    public void setUp() throws Exception {
+        localizer = mock(ILocalizer.class);
+        when(localizer.string(anyInt())).thenReturn("unstubbed");
+    }
 
-	@SmallTest
-	public void translateToDatabaseFormatOnExistingType(){
-		LocalizedType[] localizedTypes = {new LocalizedType("local-type")};
-		DatabaseType[] databaseTypes = {new DatabaseType("db-type")};
-		TypeTranslator sut = new TypeTranslator(localizedTypes, databaseTypes);
-		DatabaseType type = sut.toDatabaseFormat(localizedTypes[0]);
-		assertThat(type, is(databaseTypes[0]));
-	}
-	@SmallTest
-	public void translateFromDatabaseFormatOnExistingType(){
-		LocalizedType[] localizedTypes = {new LocalizedType("local-type")};
-		DatabaseType[] databaseTypes = {new DatabaseType("db-type")};
-		TypeTranslator sut = new TypeTranslator(localizedTypes, databaseTypes);
-		LocalizedType type = sut.fromDatabaseFormat(databaseTypes[0]);
-		assertThat(type, is(localizedTypes[0]));
-	}
-	
+    @SmallTest
+    public void translateToDatabaseFormatOnExistingType() {
+        LocalizedType[] localizedTypes = {new LocalizedType("local-type")};
+        DatabaseType[] databaseTypes = {new DatabaseType("db-type")};
+        TypeTranslator sut = new TypeTranslator(localizedTypes, databaseTypes);
+        DatabaseType type = sut.toDatabaseFormat(localizedTypes[0]);
+        assertThat(type, is(databaseTypes[0]));
+    }
+
+    @SmallTest
+    public void translateFromDatabaseFormatOnExistingType() {
+        LocalizedType[] localizedTypes = {new LocalizedType("local-type")};
+        DatabaseType[] databaseTypes = {new DatabaseType("db-type")};
+        TypeTranslator sut = new TypeTranslator(localizedTypes, databaseTypes);
+        LocalizedType type = sut.fromDatabaseFormat(databaseTypes[0]);
+        assertThat(type, is(localizedTypes[0]));
+    }
+
 }

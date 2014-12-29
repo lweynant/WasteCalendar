@@ -1,7 +1,8 @@
 package com.lweynant.wastecalendar.model;
 
 public interface IKeyValuesReader {
-	String getString(String key);
-	int getInt(String key);
+    String getString(String key);
+
+    int getInt(String key);
 
 }

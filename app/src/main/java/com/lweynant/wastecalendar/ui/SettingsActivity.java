@@ -4,9 +4,9 @@ import android.app.Fragment;
 
 public class SettingsActivity extends SingleFragmentActivity {
 
-	@Override
-	protected Fragment getFragment() {
-		return new SettingsFragment();
-	}
+    @Override
+    protected Fragment getFragment() {
+        return new SettingsFragment();
+    }
 
 }

@@ -5,6 +5,6 @@ import android.content.ContentValues;
 public interface IWasteContentValues {
 
 
-	ContentValues getContentValues();
+    ContentValues getContentValues();
 
 }
