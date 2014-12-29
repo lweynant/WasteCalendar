@@ -41,7 +41,7 @@ public class Alarm {
             IWasteEvent wasteEvent = events.get(0);
             Intent intent = alarmManager.getContentIntent();
             PendingIntent pendingIntent = alarmManager.getPendingIntent(
-                    fillInIntent(intent, wasteEvent), REQUEST_CODE_SET_ALARM,
+                    fillInIntent(intent, events), REQUEST_CODE_SET_ALARM,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             long timeInMs = getTakeOutTimeInMs(wasteEvent);
             alarmManager.set(AlarmManager.RTC, timeInMs, pendingIntent);
@@ -53,11 +53,17 @@ public class Alarm {
         }
     }
 
-    private Intent fillInIntent(Intent intent, IWasteEvent wasteEvent) {
+    private Intent fillInIntent(Intent intent, List<IWasteEvent> events) {
+        IWasteEvent wasteEvent = events.get(0);
         IDate takeOutDate = wasteEvent.takeOutDate();
         intent.setAction(ACTION_NOTIFY_ALARM);
-        String[] names = new String[]{wasteEvent.type().value()};
-        int[] icons = new int[]{wasteEvent.imageResource()};
+        String[] names = new String[events.size()];
+        int[] icons = new int[events.size()];
+        for (int i = 0; i < events.size(); i++){
+            IWasteEvent event = events.get(i);
+            names[i] = event.type().value();
+            icons[i] = event.imageResource();
+        }
         intent.putExtra(EXTRA_NAME, names);
         intent.putExtra(EXTRA_ICON, icons);
         DateUtil.writeDateToIntent(takeOutDate, intent);
@@ -91,11 +97,15 @@ public class Alarm {
 
     private Notification.Builder fillInBuilder(
             Notification.Builder builder, Intent intent, PendingIntent pi) {
-        String[] names = intent.getStringArrayExtra(Alarm.EXTRA_NAME);
         int[] images = intent.getIntArrayExtra(Alarm.EXTRA_ICON);
+        String[] names = intent.getStringArrayExtra(Alarm.EXTRA_NAME);
         String name = names[0];
+        for (int i = 1; i < names.length; i++) {
+            name += ", " + names[i];
+        }
         builder.setSmallIcon(R.drawable.ic_action_delete);
-        builder.setLargeIcon(resources.bitmap(images[0]));
+        int largeIcon = images.length == 1 ? images[0] : R.drawable.trash;
+        builder.setLargeIcon(resources.bitmap(largeIcon));
         builder.setTicker(name);
         builder.setContentTitle(name);
         builder.setDefaults(Notification.DEFAULT_SOUND);
