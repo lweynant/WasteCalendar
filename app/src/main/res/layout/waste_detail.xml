@@ -67,7 +67,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/waste_details_take_out_date"
         android:layout_marginTop="50dp"
-        android:text="Opgehaald?" />
+        android:text="@string/taken_out_question_mark" />
 
     <TextView
         android:id="@+id/waste_details_take_out_date"

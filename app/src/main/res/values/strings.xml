@@ -33,4 +33,6 @@
     <string name="upcoming">Upcoming</string>
     <string name="past">Past</string>
     <string name="delete_waste_event">Delete waste event</string>
+    <string name="collected_question_mark">Collected?</string>
+    <string name="taken_out_question_mark">Taken out?</string>
 </resources>

@@ -33,4 +33,7 @@
     <string name="past">Voorbije</string>
     
     <string name="delete_waste_event">Verwijder event</string>
+    <string name="collected_question_mark">Opgehaald?</string>
+    <string name="taken_out_question_mark">Buitengezet?</string>
+
 </resources>

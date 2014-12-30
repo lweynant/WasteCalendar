@@ -58,19 +58,24 @@ public class WasteDetailsFragment extends Fragment implements OnCheckedChangeLis
 
         ImageView imageView = (ImageView) v.findViewById(R.id.waste_details_image);
         imageView.setImageResource(wasteEvent.imageResource());
-        CheckBox collectedView = (CheckBox) v.findViewById(R.id.waste_details_collected);
-        collectedView.setChecked(wasteEvent.isCollected());
-        if (wasteEvent.collectionDate().after(tomorrow())) {
-            collectedView.setEnabled(false);
+        CheckBox takenOutView = (CheckBox) v.findViewById(R.id.waste_details_collected);
+        takenOutView.setChecked(wasteEvent.isCollected());
+        if (wasteEvent.takeOutDate().before(today())) {
+            Resources r = new Resources(getActivity());
+            takenOutView.setText(r.string(R.string.collected_question_mark));
+        }
+        if (wasteEvent.takeOutDate().after(today())) {
+            takenOutView.setEnabled(false);
         }
 
-        collectedView.setOnCheckedChangeListener(this);
+        takenOutView.setOnCheckedChangeListener(this);
         return v;
     }
 
-    private IDate tomorrow() {
-        return Date.today().dayAfter();
+    private IDate today() {
+        return Date.today();
     }
+
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
