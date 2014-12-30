@@ -28,4 +28,6 @@ public interface IDate extends Comparable<IDate> {
     boolean after(IDate when);
 
     Calendar calendar();
+
+    boolean isSameYearAs(IDate when);
 }

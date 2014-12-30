@@ -15,7 +15,7 @@ public class TakeOutDateFormatter extends RelativeDateFormatter {
         if (isSameDay(when)) return thisEvening();
         else if (isTomorrow(when)) return tomorrow();
         else if (isDayAfterTomorrow(when)) return dayAfterTomorrow();
-        else return date(R.string.date_evening_day_m_d, when);
+        else return date(R.string.date_evening_day_m_d, when, false);
     }
 
 

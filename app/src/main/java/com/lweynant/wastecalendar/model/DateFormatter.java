@@ -15,7 +15,12 @@ public class DateFormatter {
         this.localizer = localizer;
     }
 
-    public String format(int format, String day, String month, int dayOfMonth) {
+    public String format(int format, String day, int year, String month, int dayOfMonth) {
+        String f = localizer.string(format);
+        String d = String.format(f, day, year, month, dayOfMonth);
+        return d;
+    }
+    public String format(int format, String day,  String month, int dayOfMonth) {
         String f = localizer.string(format);
         String d = String.format(f, day, month, dayOfMonth);
         return d;

@@ -17,7 +17,11 @@ public class CollectionDateFormatter extends RelativeDateFormatter {
 
 
     public String date(IDate when) {
-        return date(R.string.date_day_m_d, when);
+        if (ref.isSameYearAs(when)) {
+            return date(R.string.date_day_m_d, when, false);
+        } else {
+            return date(R.string.date_day_y_m_d, when, true);
+        }
     }
 
     private boolean isYesterday(IDate when) {

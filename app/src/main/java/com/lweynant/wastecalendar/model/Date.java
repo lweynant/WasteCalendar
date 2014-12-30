@@ -27,10 +27,11 @@ public class Date implements IDate {
 
     @Override
     public boolean isSameAs(IDate other) {
-        return other != null && (sameDayOfMonth(other) && sameMonth(other) && sameYear(other));
+        return other != null && (sameDayOfMonth(other) && sameMonth(other) && isSameYearAs(other));
     }
 
-    private boolean sameYear(IDate other) {
+    @Override
+    public boolean isSameYearAs(IDate other) {
         return year == other.year();
     }
 

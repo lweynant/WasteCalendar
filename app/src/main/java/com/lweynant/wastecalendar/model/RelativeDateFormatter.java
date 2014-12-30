@@ -21,15 +21,23 @@ public abstract class RelativeDateFormatter implements IRelativeDateFormatter {
         return when.isSameAs(ref);
     }
 
-    protected String date(int format, IDate when) {
+    protected String date(int format, IDate when, boolean addYear) {
         String day = capitalizeFirstLetter(df.day(when));
         String month = df.month(when);
-        String d = date(format, day, month, when.dayOfMonth());
+
+        String d;
+        if (addYear)
+            d = date(format, day,  when.year(), month, when.dayOfMonth());
+        else
+            d = date(format, day, month, when.dayOfMonth());
         return d;
     }
 
-    private String date(int format, String day, String month, int dayOfMonth) {
-        return df.format(format, day, month, dayOfMonth);
+    private String date(int format, String day, int year, String month, int dayOfMonth) {
+        return df.format(format, day, year, month, dayOfMonth);
+    }
+    private String date(int format, String day,  String month, int dayOfMonth) {
+        return df.format(format, day,  month, dayOfMonth);
     }
 
     private String capitalizeFirstLetter(String day) {

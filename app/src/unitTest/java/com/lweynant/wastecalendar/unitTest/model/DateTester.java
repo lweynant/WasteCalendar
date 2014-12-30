@@ -221,6 +221,19 @@ public class DateTester extends TestCase {
     }
 
     @SmallTest
+    public void testSameYearOnDayFromNextYear(){
+        IDate today = anyDay();
+        IDate nextYear = addAYear(today);
+        assertThat(today.isSameYearAs(nextYear), is(false));
+    }
+    @SmallTest
+    public void testSameYearOnSameDay(){
+        IDate today = anyDay();
+        IDate otherDay = sameDay(today);
+        assertThat(today.isSameYearAs(otherDay), is(true));
+    }
+
+    @SmallTest
     public void testCompareToSameDay() {
         IDate day = anyDay();
         assertThat(day.compareTo(day), is(0));
