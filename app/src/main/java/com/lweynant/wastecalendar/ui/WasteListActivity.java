@@ -145,7 +145,7 @@ public class WasteListActivity extends FragmentActivity
     public static class MyAdapter extends FragmentPagerAdapter {
         static final String TAG = "MyAdapter";
 
-        public MyAdapter(FragmentManager fm) {
+        public MyAdapter( FragmentManager fm) {
             super(fm);
         }
 
@@ -163,5 +163,6 @@ public class WasteListActivity extends FragmentActivity
                 return new PastWasteListFragment();
             }
         }
+
     }
 }
