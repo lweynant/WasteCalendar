@@ -6,7 +6,7 @@
     android:layout_marginBottom="4dp"
     android:layout_marginLeft="6dp"
     android:layout_marginRight="6dp"
-    android:layout_marginTop="4dp" >
+    android:layout_marginTop="4dp">
 
 
     <ImageView
@@ -16,6 +16,8 @@
         android:layout_alignBottom="@+id/pastwaste_list_item_date"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:scaleType="centerInside"
         android:src="@drawable/gft" />
 
@@ -25,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/pastwaste_list_item_image"
-        android:padding="4dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:padding="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:text="RestAfval"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
@@ -38,20 +40,20 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/pastwaste_list_item_title"
         android:layout_below="@+id/pastwaste_list_item_title"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:text="Maandag 6 Juli"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <CheckBox
         android:id="@+id/pastwaste_list_item_collected"
-        android:enabled="false"
-        android:focusable="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/pastwaste_list_item_date"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/pastwaste_list_item_title"/>
+        android:layout_alignTop="@+id/pastwaste_list_item_title"
+        android:enabled="false"
+        android:focusable="false" />
 
 </RelativeLayout>
