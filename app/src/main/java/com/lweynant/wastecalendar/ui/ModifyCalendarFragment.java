@@ -2,6 +2,8 @@ package com.lweynant.wastecalendar.ui;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,12 +64,13 @@ public class ModifyCalendarFragment extends Fragment
         cv.setDate(currentDay.calendar().getTimeInMillis());
         views.clear();
 
+        DrawableTransformer transformer = new DrawableTransformer(getResources());
         for (LocalizedType type : factory.getPossibleTypes()) {
             IWasteEvent event = factory.createWasteEvent(type, currentDay);
             View item = inflater.inflate(R.layout.modify_waste_item, null);
             ImageView i = (ImageView) item
                     .findViewById(R.id.modify_waste_item_image);
-            i.setImageResource(event.imageResource());
+            i.setImageDrawable(transformer.toCircle(event.imageResource()));
             final TextView t = (TextView) item
                     .findViewById(R.id.modify_waste_item_dates);
             t.setText("");

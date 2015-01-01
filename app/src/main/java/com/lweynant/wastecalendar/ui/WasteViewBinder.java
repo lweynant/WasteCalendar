@@ -1,6 +1,10 @@
 package com.lweynant.wastecalendar.ui;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.View;
@@ -18,11 +22,13 @@ class WasteViewBinder implements ViewBinder {
     final private DrawableFactory factory;
     final private IRelativeDateFormatter dateFormatter;
     final private ILocalizer localizer;
+    final private IDrawableTransformer transformer;
 
-    public WasteViewBinder(ILocalizer localizer, DrawableFactory factory, IRelativeDateFormatter dateFormatter) {
+    public WasteViewBinder(IDrawableTransformer transformer,ILocalizer localizer, DrawableFactory factory, IRelativeDateFormatter dateFormatter) {
         this.factory = factory;
         this.dateFormatter = dateFormatter;
         this.localizer = localizer;
+        this.transformer = transformer;
     }
 
     @Override
@@ -39,8 +45,7 @@ class WasteViewBinder implements ViewBinder {
             @Override
             protected Drawable doInBackground(IViewHolder... params) {
                 v = params[0];
-                Drawable d = factory.getDrawable(v.getImageResource());
-                return d;
+                return transformer.toCircle(v.getImageResource());
             }
 
             @Override

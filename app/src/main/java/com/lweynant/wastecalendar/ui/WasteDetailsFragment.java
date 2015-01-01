@@ -1,6 +1,8 @@
 package com.lweynant.wastecalendar.ui;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +59,8 @@ public class WasteDetailsFragment extends Fragment implements OnCheckedChangeLis
         takeOutDateView.setText(formatter.getRelativeTimeString(wasteEvent.takeOutDate()));
 
         ImageView imageView = (ImageView) v.findViewById(R.id.waste_details_image);
-        imageView.setImageResource(wasteEvent.imageResource());
+        DrawableTransformer transformer = new DrawableTransformer(getResources());
+        imageView.setImageDrawable(transformer.toCircle(wasteEvent.imageResource()));
         CheckBox takenOutView = (CheckBox) v.findViewById(R.id.waste_details_collected);
         takenOutView.setChecked(wasteEvent.isCollected());
         if (wasteEvent.takeOutDate().before(today())) {

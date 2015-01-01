@@ -134,7 +134,7 @@ public class PastWasteListFragment extends WasteListFragment implements LoaderMa
         getLoaderManager().initLoader(0, null, this);
         WasteCursorAdapter cursorAdapter = new WasteCursorAdapter(getActivity());
         ILocalizer localizer = new Resources(getActivity());
-        cursorAdapter.setViewBinder(new WasteViewBinder(localizer,
+        cursorAdapter.setViewBinder(new WasteViewBinder(new DrawableTransformer(getResources()), localizer,
                 drawableFactory, new CollectionDateFormatter(Date.today(), localizer)));
         setListAdapter(cursorAdapter);
     }
