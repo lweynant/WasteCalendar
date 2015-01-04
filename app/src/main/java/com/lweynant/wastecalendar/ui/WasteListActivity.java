@@ -30,7 +30,7 @@ public class WasteListActivity extends FragmentActivity
 
     private static final String TAB = "selected-tab";
 
-    private static final String TAG = "WasteListActivity";
+    private static final String TAG = WasteListActivity.class.getSimpleName();
     MyAdapter mAdapter;
     ViewPager mPager;
 
