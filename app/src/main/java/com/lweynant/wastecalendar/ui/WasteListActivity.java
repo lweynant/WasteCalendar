@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
@@ -16,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.lweynant.wastecalendar.AlarmService;
@@ -35,39 +35,56 @@ public class WasteListActivity extends FragmentActivity
         PastWasteListFragment.Callbacks {
 
 
-    private static final String CURRENT_SECTION = "current-section";
+    private static final String CURRENT_CALLENDAR_VIEW = "current_callendar_view";
 
     private static final String TAG = WasteListActivity.class.getSimpleName();
     DrawerLayout mDrawerLayout;
-    ListView mDrawerList;
-    String[] mSections;
+    LinearLayout mDrawerContent;
+    ListView mCalendarViewList;
+    ListView mOptionsList;
+    String[] mCalendarViewNames;
+    String[] mOptions;
     private ActionBarDrawerToggle mDrawerToggle;
-    CharSequence mTitle;
-    String mDrawerTitle = "drawer title";
-    private int mCurrentSection = 0;
+    private int mCurrentCalendarView = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTitle = getTitle();
         setContentView(R.layout.drawer);
         ILocalizer localizer = new Resources(this);
-        mSections = new String[]{localizer.string(R.string.upcoming),
+        mCalendarViewNames = new String[]{localizer.string(R.string.upcoming),
                 localizer.string(R.string.past)};
+        mOptions = new String[]{localizer.string(R.string.modify_calendar), localizer.string(R.string.settings)};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerContent = (LinearLayout) findViewById(R.id.left_drawer);
+        mCalendarViewList = (ListView) findViewById(R.id.calendar_view_list);
+        mCalendarViewList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mCalendarViewNames));
 
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mSections));
+        mCalendarViewList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectCalendarListView(position);
+            }
+        });
+        mOptionsList = (ListView) findViewById(R.id.option_list);
+        mOptionsList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mOptions));
 
-        mDrawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+        mOptionsList.setOnItemClickListener(new ListView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
+                if (position == 0) {
+                    startActivity(new Intent(WasteListActivity.this, ModifyCalendarActivity.class));
+                } else {
+                    startActivity(new Intent(WasteListActivity.this, SettingsActivity.class));
+                }
+                mDrawerLayout.closeDrawer(mDrawerContent);
             }
         });
+
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
@@ -75,17 +92,16 @@ public class WasteListActivity extends FragmentActivity
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -107,11 +123,17 @@ public class WasteListActivity extends FragmentActivity
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    private void selectItem(int position) {
-        mCurrentSection = position;
-        String section = mSections[mCurrentSection];
+    private void selectCalendarListView(int position) {
+        mCurrentCalendarView = position;
+        String section = mCalendarViewNames[mCurrentCalendarView];
         Fragment fragment = (Fragment) getSupportFragmentManager().findFragmentByTag(section);
         // Check if the fragment is already initialized
+        ILocalizer localizer = new Resources(this);
+        String title = localizer.string(R.string.app_name);
+        if (position == 1) {
+            title = localizer.string(R.string.past);
+        }
+
         if (fragment == null) {
             Log.v(TAG, "fragment was not found for section: " + section);
             // If not, instantiate and add it to the activity
@@ -120,9 +142,7 @@ public class WasteListActivity extends FragmentActivity
             } else {
                 fragment = new PastWasteListFragment();
             }
-        }
-        else
-        {
+        } else {
             Log.v(TAG, "Hurray fragment was found for section: " + section);
             //todo this actually never happens because nobody holds on to the fragment
         }
@@ -132,16 +152,16 @@ public class WasteListActivity extends FragmentActivity
                 .replace(R.id.content_frame, fragment)
                 .commit();
         // Highlight the selected item, update the title, and close the drawer
-        mDrawerList.setItemChecked(position, true);
-        //setTitle(mPlanetTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        mCalendarViewList.setItemChecked(position, true);
+        setTitle(title);
+        mDrawerLayout.closeDrawer(mDrawerContent);
     }
 
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerContent);
         //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -149,7 +169,7 @@ public class WasteListActivity extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
-        selectItem(mCurrentSection);
+        selectCalendarListView(mCurrentCalendarView);
         DateFormatter formatter = new DateFormatter(new Resources(this));
         getActionBar().setSubtitle(formatter.format(Date.today()));
     }
@@ -158,7 +178,7 @@ public class WasteListActivity extends FragmentActivity
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
-            selectItem(savedInstanceState.getInt(CURRENT_SECTION));
+            selectCalendarListView(savedInstanceState.getInt(CURRENT_CALLENDAR_VIEW));
         }
     }
 
@@ -166,14 +186,16 @@ public class WasteListActivity extends FragmentActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (outState != null) {
-            outState.putInt(CURRENT_SECTION, mCurrentSection);
+            outState.putInt(CURRENT_CALLENDAR_VIEW, mCurrentCalendarView);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_waste_list, menu);
+        if (mCurrentCalendarView == 0) {
+            inflater.inflate(R.menu.activity_waste_list, menu);
+        }
         return true;
     }
 
@@ -186,12 +208,6 @@ public class WasteListActivity extends FragmentActivity
         }
         // Handle your other action bar items...
         switch (item.getItemId()) {
-            case R.id.menu_item_modifycalendar:
-                startActivity(new Intent(this, ModifyCalendarActivity.class));
-                return true;
-            case R.id.menu_item_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
             case R.id.menu_item_reset:
                 AlarmService.setAlarmRequest(this, Date.today());
                 return true;

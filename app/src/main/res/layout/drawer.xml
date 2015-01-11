@@ -10,12 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <!-- The navigation drawer -->
-    <ListView android:id="@+id/left_drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
+    <LinearLayout
+        android:id="@+id/left_drawer"
         android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="@color/Ivory"/>
+        android:orientation="vertical"
+        android:layout_width="240dp"
+        android:layout_height="match_parent">
+        <ListView android:id="@+id/calendar_view_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="@color/Ivory"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <ListView android:id="@+id/option_list"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:choiceMode="none"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="@color/Ivory"/>
+
+        </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
