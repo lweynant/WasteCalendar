@@ -21,13 +21,14 @@ import com.lweynant.wastecalendar.Resources;
 import com.lweynant.wastecalendar.model.Date;
 import com.lweynant.wastecalendar.model.IDate;
 import com.lweynant.wastecalendar.model.IWasteEvent;
+import com.lweynant.wastecalendar.model.Waste;
 import com.lweynant.wastecalendar.provider.CursorReader;
 import com.lweynant.wastecalendar.provider.WasteContentResolver;
 import com.lweynant.wastecalendar.provider.WasteEventFactory;
 
 public abstract class WasteListFragment extends ListFragment {
 
-    protected static final String TAG = "WasteListFragment";
+    protected static final String TAG = WasteListFragment.class.getSimpleName();
     protected IDate queryDate = null;
 
     @Override

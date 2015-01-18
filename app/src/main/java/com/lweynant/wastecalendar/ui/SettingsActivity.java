@@ -1,10 +1,29 @@
 package com.lweynant.wastecalendar.ui;
 
-import android.app.Fragment;
 
-public class SettingsActivity extends SingleFragmentActivity {
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.os.Bundle;
+
+import com.lweynant.wastecalendar.R;
+
+public class SettingsActivity extends Activity {
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fragment);
+        FragmentManager fm =  getFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+        if (fragment == null) {
+            fragment = getFragment();
+            fm.beginTransaction()
+                    .add(R.id.fragmentContainer, fragment)
+                    .commit();
+        }
+    }
+
     protected Fragment getFragment() {
         return new SettingsFragment();
     }

@@ -1,6 +1,7 @@
 package com.lweynant.wastecalendar.ui;
 
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 
 import com.lweynant.wastecalendar.Resources;
 import com.lweynant.wastecalendar.model.IWasteEvent;

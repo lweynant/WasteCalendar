@@ -221,7 +221,7 @@ public class WasteListActivity extends FragmentActivity
     public void onWasteEventClicked(IWasteEvent wasteEvent) {
         Log.d(TAG, "onWasteEventClicked: " + wasteEvent);
         IntentKeyValues intentKeyValues = new IntentKeyValues(new Intent(this,
-                WasteDetailsActivity.class));
+                mCurrentCalendarView == 0? UpcomingWasteDetailsActivity.class:WasteDetailsActivity.class));
         WasteEventKeyValues writer = new WasteEventKeyValues(
                 new WasteEventFactory(new Resources(this)));
         writer.writeTo(wasteEvent, intentKeyValues);

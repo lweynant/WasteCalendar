@@ -1,9 +1,9 @@
 package com.lweynant.wastecalendar.ui;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.lweynant.wastecalendar.R;
 import com.lweynant.wastecalendar.Resources;
@@ -24,11 +25,11 @@ import com.lweynant.wastecalendar.model.WasteEventKeyValues;
 import com.lweynant.wastecalendar.provider.WasteContentResolver;
 import com.lweynant.wastecalendar.provider.WasteEventFactory;
 
-public class WasteDetailsFragment extends Fragment implements OnCheckedChangeListener {
+public class UpcomingWasteDetailsFragment extends Fragment implements OnCheckedChangeListener {
     private IWasteEvent wasteEvent;
 
     public static Fragment newInstance(IWasteEvent event, ILocalizer localizer) {
-        WasteDetailsFragment fragment = new WasteDetailsFragment();
+        UpcomingWasteDetailsFragment fragment = new UpcomingWasteDetailsFragment();
         final BundleKeyValues bundleKeyValues = new BundleKeyValues(new Bundle());
 
         WasteEventKeyValues writer = new WasteEventKeyValues(new WasteEventFactory(localizer));
@@ -44,34 +45,44 @@ public class WasteDetailsFragment extends Fragment implements OnCheckedChangeLis
         WasteEventKeyValues reader = new WasteEventKeyValues(new WasteEventFactory(new Resources(getActivity())));
         BundleKeyValues bundle = new BundleKeyValues(getArguments());
         wasteEvent = reader.readFrom(bundle);
+
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragment);
+        if (fragment == null){
+            fragment = PastWasteListFragment.newInstance(wasteEvent, new Resources(getActivity()));
+        }
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment, fragment)
+                .commit();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.waste_detail, container, false);
-        TextView typeView = (TextView) v.findViewById(R.id.waste_details_type);
-        typeView.setText(wasteEvent.type().value());
+        View v = inflater.inflate(R.layout.upcoming_waste_detail, container, false);
+        ILocalizer l = new Resources(this.getActivity());
+        String collection = l.string(R.string.collection_date);
         CollectionDateFormatter formatter = new CollectionDateFormatter(Date.today(), new Resources(getActivity()));
-        TextView collectionDateView = (TextView) v.findViewById(R.id.waste_details_collection_date);
-        collectionDateView.setText(formatter.getRelativeTimeString(wasteEvent.collectionDate()));
-        TextView takeOutDateView = (TextView) v.findViewById(R.id.waste_details_take_out_date);
-        takeOutDateView.setText(formatter.getRelativeTimeString(wasteEvent.takeOutDate()));
+        collection += " " + formatter.getRelativeTimeString(wasteEvent.collectionDate());
+        TextView collectionDateView = (TextView) v.findViewById(R.id.upcoming_waste_details_collection_date);
+        collectionDateView.setText(collection);
 
-        ImageView imageView = (ImageView) v.findViewById(R.id.waste_details_image);
+        ImageView imageView = (ImageView) v.findViewById(R.id.upcoming_waste_details_image);
         DrawableTransformer transformer = new DrawableTransformer(getResources());
         imageView.setImageDrawable(transformer.toCircle(wasteEvent.imageResource()));
-        CheckBox takenOutView = (CheckBox) v.findViewById(R.id.waste_details_collected);
+        CheckBox takenOutView = (CheckBox) v.findViewById(R.id.upcoming_waste_details_collected);
         takenOutView.setChecked(wasteEvent.isCollected());
-        if (wasteEvent.takeOutDate().before(today())) {
-            Resources r = new Resources(getActivity());
-            takenOutView.setText(r.string(R.string.collected_question_mark));
-        }
-        if (wasteEvent.takeOutDate().after(today())) {
-            takenOutView.setEnabled(false);
-        }
-
+        takenOutView.setEnabled(wasteEvent.takeOutDate().isSameAs(today()));
         takenOutView.setOnCheckedChangeListener(this);
+
+        ActionBar a = getActivity().getActionBar();
+        a.setTitle(wasteEvent.type().value());
+        //a.setIcon(transformer.toCircle(wasteEvent.imageResource()));
+        String subTitle = l.string(R.string.take_out);
+        subTitle += " " + formatter.getRelativeTimeString(wasteEvent.takeOutDate());
+        a.setSubtitle(subTitle);
         return v;
     }
 

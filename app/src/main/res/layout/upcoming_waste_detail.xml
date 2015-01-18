@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upcoming_waste_details_image"
+        android:src="@drawable/pmd"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:padding="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Large Text"
+        android:id="@+id/upcoming_waste_details_collection_date"
+        android:padding="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/upcoming_waste_details_image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/taken_out_question_mark"
+        android:id="@+id/textView"
+        android:layout_toRightOf="@+id/upcoming_waste_details_image"
+        android:layout_below="@+id/upcoming_waste_details_collection_date"
+        android:paddingLeft="16dp"
+        android:paddingRight="56dp"
+        android:paddingBottom="16dp"
+        android:gravity="right"
+        android:textAlignment="viewEnd" />
+
+    <CheckBox
+        android:id="@+id/upcoming_waste_details_collected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignTop="@+id/textView"
+        android:paddingBottom="16dp"
+        android:enabled="false"
+        android:focusable="false"
+        android:paddingRight="8dp"/>
+
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/line1"
+        android:layout_alignBottom="@+id/upcoming_waste_details_collected"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_alignRight="@+id/upcoming_waste_details_collected"
+        android:layout_alignEnd="@+id/upcoming_waste_details_collected" />
+
+
+</RelativeLayout>

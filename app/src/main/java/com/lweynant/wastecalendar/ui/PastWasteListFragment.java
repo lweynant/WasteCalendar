@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -24,15 +25,20 @@ import com.lweynant.wastecalendar.model.CollectionDateFormatter;
 import com.lweynant.wastecalendar.model.Date;
 import com.lweynant.wastecalendar.model.ILocalizer;
 import com.lweynant.wastecalendar.model.IRelativeDateFormatter;
+import com.lweynant.wastecalendar.model.ITypeTranslator;
 import com.lweynant.wastecalendar.model.IWasteEvent;
+import com.lweynant.wastecalendar.model.WasteEventKeyValues;
 import com.lweynant.wastecalendar.provider.CursorReader;
+import com.lweynant.wastecalendar.provider.DatabaseType;
 import com.lweynant.wastecalendar.provider.ICursorContent;
 import com.lweynant.wastecalendar.provider.SQLBuilder;
+import com.lweynant.wastecalendar.provider.TypeTranslator;
 import com.lweynant.wastecalendar.provider.WasteEventFactory;
 import com.lweynant.wastecalendar.provider.WasteProviderMetaData;
 import com.lweynant.wastecalendar.provider.WasteProviderMetaData.WasteEventTableMetaData;
 
 public class PastWasteListFragment extends WasteListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+
 
     /**
      * required interface for hosting activities
@@ -42,6 +48,7 @@ public class PastWasteListFragment extends WasteListFragment implements LoaderMa
     }
 
     private Callbacks callbacks;
+    private IWasteEvent wasteEvent;
 
     @Override
     public void onAttach(Activity activity) {
@@ -54,9 +61,19 @@ public class PastWasteListFragment extends WasteListFragment implements LoaderMa
         super.onDetach();
         callbacks = null;
     }
+    public static Fragment newInstance(IWasteEvent event, ILocalizer localizer) {
+        PastWasteListFragment fragment = new PastWasteListFragment();
+        final BundleKeyValues bundleKeyValues = new BundleKeyValues(new Bundle());
+
+        WasteEventKeyValues writer = new WasteEventKeyValues(new WasteEventFactory(localizer));
+        writer.writeTo(event, bundleKeyValues);
+
+        fragment.setArguments(bundleKeyValues.bundle());
+        return fragment;
+    }
 
 
-    private static final String TAG = "AllWasteListFragment";
+    private static final String TAG = PastWasteListFragment.class.getSimpleName();
 
     private class ViewHolder implements IViewHolder {
         private TextView title;
@@ -130,6 +147,19 @@ public class PastWasteListFragment extends WasteListFragment implements LoaderMa
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        if (arguments== null)
+        {
+            wasteEvent = null;
+        }
+        else
+        {
+            WasteEventKeyValues reader = new WasteEventKeyValues(new WasteEventFactory(new Resources(getActivity())));
+            BundleKeyValues bundle = new BundleKeyValues(arguments);
+            wasteEvent = reader.readFrom(bundle);
+
+        }
+
         drawableFactory = new DrawableFactory(getResources());
         getLoaderManager().initLoader(0, null, this);
         WasteCursorAdapter cursorAdapter = new WasteCursorAdapter(getActivity());
@@ -159,7 +189,19 @@ public class PastWasteListFragment extends WasteListFragment implements LoaderMa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         queryDate = Date.today();
         SQLBuilder builder = new SQLBuilder();
-        builder.queryUntil(queryDate);
+
+        if (wasteEvent == null)
+        {
+            builder.queryUntil(queryDate);
+        }
+        else
+        {
+            Log.d(TAG, "filter on " + wasteEvent.type());
+            ILocalizer l = new Resources(getActivity());
+            ITypeTranslator trans = new WasteEventFactory(l);
+            builder.queryUntil(trans.toDatabaseFormat(wasteEvent.type()), queryDate);
+
+        }
         // Now create and return a CursorLoader that will take care of
         // creating a Cursor for the data being displayed.
         Log.d(TAG, "created query: " + builder.toString());

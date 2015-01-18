@@ -68,6 +68,26 @@ public class SQLBuilder {
                 Integer.toString(date.dayOfMonth())
         };
     }
+    public void queryUntil(DatabaseType type, IDate date) {
+        selection = String.format("%s = ? AND (%s < ? OR ( (%s = ?  AND %s < ?) OR (%s = ? AND %s = ?  AND %s <= ?)))",
+                WasteEventTableMetaData.WASTE_EVENT_TYPE,
+                WasteEventTableMetaData.WASTE_EVENT_YEAR,
+                WasteEventTableMetaData.WASTE_EVENT_YEAR,
+                WasteEventTableMetaData.WASTE_EVENT_MONTH,
+                WasteEventTableMetaData.WASTE_EVENT_YEAR,
+                WasteEventTableMetaData.WASTE_EVENT_MONTH,
+                WasteEventTableMetaData.WASTE_EVENT_DAY
+        );
+        selectionArgs = new String[]{
+                type.value(),
+                Integer.toString(date.year()),
+                Integer.toString(date.year()),
+                Integer.toString(date.month()),
+                Integer.toString(date.year()),
+                Integer.toString(date.month()),
+                Integer.toString(date.dayOfMonth())
+        };
+    }
 
     public void query(String string, Date date) {
         selection = String.format("%s = ? AND %s = ? AND %s = ? AND %s =?",

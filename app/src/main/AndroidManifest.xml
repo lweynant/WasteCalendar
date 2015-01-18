@@ -53,7 +53,12 @@
             android:name="com.lweynant.wastecalendar.ui.WasteDetailsActivity"
                   android:parentActivityName="com.lweynant.wastecalendar.ui.WasteListActivity" >
         </activity>
-        
+        <activity
+            android:label="@string/waste_details"
+            android:name="com.lweynant.wastecalendar.ui.UpcomingWasteDetailsActivity"
+            android:parentActivityName="com.lweynant.wastecalendar.ui.WasteListActivity" >
+        </activity>
+
         <provider
             android:name="com.lweynant.wastecalendar.provider.WasteContentProvider"
             android:authorities="com.lweynant.provider.WasteEventProvider" >

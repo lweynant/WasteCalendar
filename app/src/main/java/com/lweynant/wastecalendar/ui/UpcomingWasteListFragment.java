@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -31,6 +32,7 @@ import com.lweynant.wastecalendar.model.IPreferences;
 import com.lweynant.wastecalendar.model.IRelativeDateFormatter;
 import com.lweynant.wastecalendar.model.IWasteEvent;
 import com.lweynant.wastecalendar.model.TakeOutDateFormatter;
+import com.lweynant.wastecalendar.model.WasteEventKeyValues;
 import com.lweynant.wastecalendar.provider.CursorReader;
 import com.lweynant.wastecalendar.provider.ICursorContent;
 import com.lweynant.wastecalendar.provider.SQLBuilder;
@@ -44,7 +46,7 @@ public class UpcomingWasteListFragment extends WasteListFragment
         LoaderManager.LoaderCallbacks<Cursor> {
 
 
-    private static final String TAG = "WasteListFragment";
+    private static final String TAG = UpcomingWasteListFragment.class.getSimpleName();
     private DrawableFactory drawableFactory = null;
     private Callbacks callbacks;
 

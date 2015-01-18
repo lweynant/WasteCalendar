@@ -1,6 +1,8 @@
 package com.lweynant.wastecalendar.ui;
 
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
 public class ModifyCalendarActivity extends SingleFragmentActivity {
 

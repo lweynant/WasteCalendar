@@ -1,10 +1,10 @@
 package com.lweynant.wastecalendar.ui;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -122,7 +122,7 @@ public class ModifyCalendarFragment extends Fragment
             Log.d(TAG, "onSelectedDayChange: " + year + "-" + month + "-"
                     + dayOfMonth);
             onNewDateShown(day);
-            FragmentManager fm = getActivity().getFragmentManager();
+            FragmentManager fm = getActivity().getSupportFragmentManager();
             Vector<String> selectedTypes = getSelectedTypes();
             WastePickerFragment f = WastePickerFragment.newInstance(day,
                     factory.getPossibleTypes(),
