@@ -1,7 +1,11 @@
 package com.lweynant.wastecalendar.ui;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,7 +42,7 @@ public class WasteListActivity extends FragmentActivity
 
     private static final String CURRENT_CALLENDAR_VIEW = "current_callendar_view";
 
-    private static final String TAG = WasteListActivity.class.getSimpleName();
+    private static final String TAG = WasteListActivity.class.getCanonicalName();
     DrawerLayout mDrawerLayout;
     LinearLayout mDrawerContent;
     ListView mCalendarViewList;
@@ -82,6 +87,7 @@ public class WasteListActivity extends FragmentActivity
                     startActivity(new Intent(WasteListActivity.this, SettingsActivity.class));
                 }
                 mDrawerLayout.closeDrawer(mDrawerContent);
+
             }
         });
 
@@ -108,6 +114,22 @@ public class WasteListActivity extends FragmentActivity
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            Log.d(TAG, "setting task description...");
+            TypedValue typedValue = new TypedValue();
+            android.content.res.Resources.Theme theme = getTheme();
+            theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            int color = typedValue.data;
+
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_recents_overview);
+            ActivityManager.TaskDescription td = new ActivityManager.TaskDescription(null, bm, color);
+
+            setTaskDescription(td);
+            bm.recycle();
+
+        }
     }
 
     @Override

@@ -5,5 +5,6 @@
         <!-- customize the color palette -->
         <item name="android:colorPrimary">@color/Green</item>
         <item name="android:colorPrimaryDark">@color/DarkGreen</item>
+        <item name="android:colorAccent">@color/SeaGreen</item>
     </style>
 </resources>
